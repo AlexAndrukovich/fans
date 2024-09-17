@@ -25,37 +25,37 @@ export const useAuth = (): UseAuth => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const loginHandler = async (
-    email: string,
-    password: string,
-  ): Promise<void> => {
-    setLoading(true);
-    setError(null);
-    try {
-      await loginUser(email, password);
-      navigate('/user');
-    } catch (err) {
-      setError((err as AuthError)?.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const loginHandler = useCallback(
+    async (email: string, password: string): Promise<void> => {
+      setLoading(true);
+      setError(null);
+      try {
+        await loginUser(email, password);
+        navigate('/user');
+      } catch (err) {
+        setError((err as AuthError)?.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate],
+  );
 
-  const registerHandler = async (
-    email: string,
-    password: string,
-  ): Promise<void> => {
-    setLoading(true);
-    setError(null);
-    try {
-      await registerUser(email, password);
-      navigate('/login');
-    } catch (err) {
-      setError((err as AuthError)?.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const registerHandler = useCallback(
+    async (email: string, password: string): Promise<void> => {
+      setLoading(true);
+      setError(null);
+      try {
+        await registerUser(email, password);
+        navigate('/login');
+      } catch (err) {
+        setError((err as AuthError)?.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate],
+  );
 
   const fetchUser = useCallback(async (): Promise<void> => {
     setLoading(true);
