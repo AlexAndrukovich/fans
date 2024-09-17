@@ -1,1 +1,1 @@
-# fans
+# docker compose up
